@@ -1,0 +1,14 @@
+version: '3.8'  # Phiên bản Docker Compose
+
+services:
+  fastapi-app:
+    build: .  # Xây dựng từ Dockerfile trong thư mục hiện tại
+    container_name: fastapi-app  # Tên container
+    ports:
+      - "8000:8000"  # Chuyển tiếp port 8000 từ container đến máy chủ
+    environment:
+      - PYTHONUNBUFFERED=1  # Đảm bảo rằng đầu ra của Python không bị đệm (buffered)
+    volumes:
+      - .:/app  # Gắn thư mục dự án vào container (tùy chọn để phát triển)
+    restart: always  # Tự động khởi động lại container nếu nó dừng lại
+
