@@ -43,8 +43,8 @@ class IndexSpider(scrapy.Spider):
     
     def parse(self, response):
         next_page =  response.xpath('//li[@class="next"]/a/@href').get()
-        # if next_page:
-        #     yield response.follow(next_page, callback=self.parse)
+        if next_page:
+            yield response.follow(next_page, callback=self.parse)
         books = response.xpath('//article[@class="product_pod"]/h3/a/@href').getall()
         for book in books:
             yield scrapy.Request(url = urljoin(response.url, book), callback=self.parse_book_detail)
